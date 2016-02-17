@@ -52,9 +52,9 @@ def netflix_solve (r, w) :
 		# w.write(m + "\t" + line)
 	keys = sorted(iter(t.keys()))
 	for x in keys:
-		w.write(x + " ")
+		w.write("movie: " + x + "\n")
 		for y in t[x]:
-			w.write(y + " ")
+			w.write(y + "\n")
 		w.write("\n")
 	#	print(cache)
 	#	print(bytes)
