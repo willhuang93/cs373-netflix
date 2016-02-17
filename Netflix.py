@@ -14,14 +14,14 @@ import os, pickle, requests
 def netflix_eval (i, j) :
 	"""
 	"""
-	cache, bytes = None
+	true_cache, bytes = None
 	# <your code>
 	if os.path.isfile('/u/downing/public_html/netflix-caches/mdg7227-real_scores.pickle') :
 		f = open('/u/downing/public_html/netflix-caches/mdg7227-real_scores.pickle')
-		cache = pickle.load(f)
+		true_cache = pickle.load(f)
 	else:
 		bytes = requests.get('http://www.cs.utexas.edu/users/downing/netflix-caches/mdg7227-real_scores.pickle').content
-		cache= pickle.load(bytes)
+		true_cache= pickle.load(bytes)
 	
 	return 1
 
@@ -29,20 +29,39 @@ def netflix_eval (i, j) :
 # netflix_solve
 # -------------
 def netflix_solve (r, w) :
-	cache = None
-	bytes = None
+
+	# reading in caches from files
+	movie_avg = None
+	usr_stats = None
+
 	if os.path.isfile('/u/downing/public_html/netflix-caches/kh549-movie_average.pickle') :
 		# Read cache from file system
 		f = open('/u/downing/public_html/netflix-caches/kh549-movie_average.pickle','rb')
-		cache = pickle.load(f)
+		movie_avg = pickle.load(f)
 	else:
 		# Read cache from HTTP
 		bytes = requests.get('http://www.cs.utexas.edu/users/downing/netflix-caches/kh549-movie_average.pickle').content
-		cache = pickle.loads(bytes)
-	
-	# p = iter(r)
+		movie_avg = pickle.loads(bytes)
+
+	if os.path.isfile('/u/downing/public_html/netflix-caches/kh549-customer_average.pickle') :
+		# Read cache from file system
+		f = open('/u/downing/public_html/netflix-caches/kh549-customer_average.pickle','rb')
+		usr_stats = pickle.load(f)
+	else:
+		# Read cache from HTTP
+		bytes = requests.get('http://www.cs.utexas.edu/users/downing/netflix-caches/kh549-customer_average.pickle').content
+		usr_stats = pickle.loads(bytes)
+
+
+	# print(type(usr_stats))
+	# for x in usr_stats:
+	# 	for y in x:
+	# 		print(x, ": ", y)
+
+	# calculations 
 	t = dict()
 	m = 0 
+
 	for line in r:
 		if ":" in line:
 			m = line.replace(":", "").replace("\n", "")
@@ -50,13 +69,21 @@ def netflix_solve (r, w) :
 		else:
 			t[m].append(line.replace("\n", ""))
 		# w.write(m + "\t" + line)
+
 	keys = sorted(iter(t.keys()))
+
 	for x in keys:
-		w.write("movie: " + x + "\n")
+		w.write("customer: " + x + "\n")
 		for y in t[x]:
-			w.write(y + "\n")
+			a = usr_stats[int(y)]
+			out = str(a)
+			w.write(y + "\t" + out + "\n")
 		w.write("\n")
+
+
 	#	print(cache)
 	#	print(bytes)
 	#	print(cache[2043])
+
+
 
