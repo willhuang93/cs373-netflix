@@ -8,26 +8,21 @@
 
 import os, pickle, requests
 
-# ----------------------------------------------------
-# cache is initialized with lazy values which will get
-# updated with each call if new values are discovered
-# ----------------------------------------------------
-
-# ------------
-# netflix_read
-# ------------
-def netflix_read (s) :
-	"""
-
-	"""
-
 # ------------
 # netflix_eval
 # ------------
 def netflix_eval (i, j) :
 	"""
 	"""
+	cache, bytes = None
 	# <your code>
+	if os.path.isfile('/u/downing/public_html/netflix-caches/mdg7227-real_scores.pickle') :
+		f = open('/u/downing/public_html/netflix-caches/mdg7227-real_scores.pickle')
+		cache = pickle.load(f)
+	else:
+		bytes = requests.get('http://www.cs.utexas.edu/users/downing/netflix-caches/mdg7227-real_scores.pickle').content
+		cache= pickle.load(bytes)
+	
 	return 1
 
 # -------------
@@ -44,11 +39,24 @@ def netflix_solve (r, w) :
 		# Read cache from HTTP
 		bytes = requests.get('http://www.cs.utexas.edu/users/downing/netflix-caches/kh549-movie_average.pickle').content
 		cache = pickle.loads(bytes)
-		
-	print(cache)
-	print(bytes)
+	
+	# p = iter(r)
+	t = dict()
+	m = 0 
+	for line in r:
+		if ":" in line:
+			m = line.replace(":", "").replace("\n", "")
+			t[m] = []
+		else:
+			t[m].append(line.replace("\n", ""))
+		# w.write(m + "\t" + line)
+	keys = sorted(iter(t.keys()))
+	for x in keys:
+		w.write(x + " ")
+		for y in t[x]:
+			w.write(y + " ")
+		w.write("\n")
+	#	print(cache)
+	#	print(bytes)
+	#	print(cache[2043])
 
-	# for s in r :
-	#     i, j = netflix_read(s)
-	#     v    = netflix_eval(i, j)
-	#     netflix_print(w, i, j, v)
