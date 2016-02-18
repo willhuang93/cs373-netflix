@@ -12,7 +12,7 @@ from numpy import mean, sqrt, square, subtract
 movie_avg = None
 usr_stats = None
 true_cache = None
-m_avg = 0
+total_avg = 0
 
 # ------------
 # netflix_eval
@@ -23,9 +23,9 @@ def netflix_eval (movie_id, usr_id, movie_avg, usr_avg) :
 	"""
 
 	global true_cache
-	global m_avg
+	global total_avg
 
-	mov_offset = movie_avg - movie_avg
+	mov_offset = movie_avg - total_avg
 	usr_offset = usr_avg - movie_avg
 
 	estimate = movie_avg + mov_offset + usr_offset
@@ -33,6 +33,8 @@ def netflix_eval (movie_id, usr_id, movie_avg, usr_avg) :
 	# print("Movie: [", movie_id, "]\t\tEstimate: ", estimate, "\t\tTrue: ", true_cache[movie_id][usr_id])
 
 	return estimate
+	# float - RMSE 0.968060456342
+	# round - RMSE 0.989417691585
 
 # -------------
 # netflix_solve
@@ -43,7 +45,7 @@ def netflix_solve (r, w) :
 	# reading in caches from files
 	global movie_avg
 	global usr_stats
-	global m_avg
+	global total_avg
 
 	# calculations 
 
@@ -54,10 +56,10 @@ def netflix_solve (r, w) :
 	# print(true_cache)
 
 	for k in iter(movie_avg.keys()):
-		m_avg += movie_avg[k]
+		total_avg += movie_avg[k]
 		m_cnt += 1
 
-	m_avg = m_avg / m_cnt
+	total_avg = total_avg / m_cnt
 
 	for line in r:
 		if ":" in line:
