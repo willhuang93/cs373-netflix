@@ -134,17 +134,32 @@ def netflix_solve (r, w) :
 
 	sorted(output.items(), key = lambda output : output[0] )
 
+	# for k in iter(output.keys()):
+	# 	# print(str(k).strip(' \t'), ":")
+	# 	w.write(str(k) + ":\n")
+	# 	for x in output[k] :
+	# 		w.write(str(round(x, 1)) + "\n")
+
+	# print("RMSE", a)
+	
+	netflix_print(w, a, output)
+
+	# ----------
+	# processing 
+	# ----------
+
+#--------------
+# netflix_print
+#--------------
+def netflix_print(w, rmse, output):
 	for k in iter(output.keys()):
 		# print(str(k).strip(' \t'), ":")
 		w.write(str(k) + ":\n")
 		for x in output[k] :
 			w.write(str(round(x, 1)) + "\n")
 
-	print("RMSE", a)
-	
-	# ----------
-	# processing 
-	# ----------
+	w.write("RMSE: " + str(round(rmse, 2)))
+
 
 # ----------------------
 # Root Mean Square Error
