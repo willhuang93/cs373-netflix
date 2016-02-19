@@ -72,5 +72,5 @@ RunNetflix.tmp: RunNetflix.in RunNetflix.out RunNetflix.py
 
 TestNetflix.tmp: TestNetflix.py
 	coverage3 run    --branch TestNetflix.py >  TestNetflix.tmp 2>&1
-	coverage3 report -m                      >> TestNetflix.tmp
+	coverage3 report -m --omit=/lusr/lib/python3.4/dist-packages/*,/home/travis/virtualenv/python3.4.2/lib/python3.4/site-packages/*                     >> TestNetflix.tmp
 	cat TestNetflix.tmp

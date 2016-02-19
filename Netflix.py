@@ -21,22 +21,23 @@ total_avg = 0
 # ------------
 # netflix_eval
 # ------------
-def netflix_eval (movie_id, usr_id, year, movie_avg, usr_avg) :
+def netflix_eval (year, movie_avg, usr_avg) :
 	
 	"""
 	"""
+	assert (movie_avg >= 0)
+	assert (usr_avg >= 0)
 
-	global true_cache
-	global total_avg
-
+	tot_avg = 3.2281371945001136
+	
 	year_diff = 0
-	mov_offset = movie_avg - total_avg
+	mov_offset = movie_avg - tot_avg # 1.771862805
 	usr_offset = usr_avg - movie_avg
 	
 	
-	if year > 2004:
-		year_diff = -0.45
-	elif year > 2003:
+	# if year > 2004:
+	# 	year_diff = -0.45
+	if year > 2003:
 		year_diff = -0.425
 	elif year > 2002:
 		year_diff = -0.4
@@ -79,13 +80,15 @@ def netflix_eval (movie_id, usr_id, year, movie_avg, usr_avg) :
 
 	estimate = movie_avg + mov_offset + usr_offset + year_diff
 
-	# print("Movie: [", movie_id, "]\t\tEstimate: ", estimate, "\t\tTrue: ", true_cache[movie_id][usr_id])
+	if estimate > 5:
+		estimate = 5
+	elif estimate < 0:
+		estimate = 0
+
+	assert (estimate >= 0 and estimate <= 5)
+	
 
 	return estimate
-
-	# RMSE 0.975639279812
-
-
 
 # -------------
 # netflix_solve
@@ -125,7 +128,7 @@ def netflix_solve (r, w) :
 			output[m_id] = temp
 		else:
 			u_id = int(line)
-			result = netflix_eval(m_id, u_id, year, movie_avg[m_id], usr_stats[u_id])
+			result = netflix_eval(year, movie_avg[m_id], usr_stats[u_id])
 			true_vals.append(int(true_cache[m_id][u_id]))
 			estimates.append(result)
 			temp.append(result)
@@ -144,6 +147,7 @@ def netflix_solve (r, w) :
 	
 	netflix_print(w, a, output)
 
+	return int(a)
 	# ----------
 	# processing 
 	# ----------
@@ -158,7 +162,7 @@ def netflix_print(w, rmse, output):
 		for x in output[k] :
 			w.write(str(round(x, 1)) + "\n")
 
-	w.write("RMSE: " + str(round(rmse, 2)))
+	w.write("RMSE: " + str(rmse))
 
 
 # ----------------------
