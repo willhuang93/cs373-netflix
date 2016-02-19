@@ -37,11 +37,11 @@ def netflix_eval (movie_id, usr_id, year, movie_avg, usr_avg) :
 	if year > 2004:
 		year_diff = -0.45
 	elif year > 2003:
-		year_diff = -0.40
+		year_diff = -0.425
 	elif year > 2002:
-		year_diff = -0.35
+		year_diff = -0.4
 	elif year > 2001:
-		year_diff = -0.3
+		year_diff = -0.375
 	elif year > 2000:
 		year_diff = -0.3
 	elif year > 1995:
@@ -67,7 +67,15 @@ def netflix_eval (movie_id, usr_id, year, movie_avg, usr_avg) :
 	elif year > 1945:
 		year_diff = 0.1
 	elif year > 1940:
-		year_diff = 0.2
+		year_diff = 0.11
+	elif year > 1930:
+		year_diff = 0.12
+	elif year > 1920:
+		year_diff = 0.13
+	elif year > 1910:
+		year_diff = 0.14
+	elif year > 1900:
+		year_diff = 0.15
 
 
 	estimate = movie_avg + mov_offset + usr_offset + year_diff
@@ -75,14 +83,8 @@ def netflix_eval (movie_id, usr_id, year, movie_avg, usr_avg) :
 	# print("Movie: [", movie_id, "]\t\tEstimate: ", estimate, "\t\tTrue: ", true_cache[movie_id][usr_id])
 
 	return estimate
-	# 1 - RMSE 0.981046728944
-	# 2 - RMSE 0.981020780464
-	# 3 - RMSE 0.979657424291
-	# 4 - RMSE 0.976689315915
-	# 5 - RMSE 0.977202256343
-	# 6 - RMSE 0.976912317284
-	# 7 - RMSE 0.976769991558
-	# 8 - RMSE 0.975782252575
+
+
 
 # -------------
 # netflix_solve
