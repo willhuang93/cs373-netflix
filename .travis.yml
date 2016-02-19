@@ -1,0 +1,33 @@
+# http://docs.travis-ci.com/user/build-configuration/
+
+language: python
+
+python:
+    - "3.4"
+
+sudo: false
+
+install:
+    - pip install --upgrade pip
+    - pip --version
+    - pip install coverage
+    - pip install numpy
+    - pip3 install requests
+
+before_script:
+    - uname -a
+    - printenv
+    - pip list
+
+script:
+    - date
+    - ls -al
+    - make netflix-tests
+    - ls -al
+    - make Netflix.html
+    - ls -al
+    - make Netflix.log
+    - ls -al
+    - make test
+    - ls -al
+    - make check

@@ -1,0 +1,101 @@
+commit d48cb6d6bad4c7e6967b7aa386f53db902634446
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Feb 18 21:16:02 2016 -0600
+
+    added TestNetflix.out files
+
+commit 601e3412cdc48d78fb562e68dba468c77d0aaea6
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Feb 18 21:10:06 2016 -0600
+
+    added TestNetflix and output file
+
+commit fd75dffac02979eb09c7717f5d65762e596d3f38
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Feb 18 19:39:15 2016 -0600
+
+    fixed output format, added netflix_print
+
+commit 3e9ac7ca18358b61aa5b69e8735447067207d07d
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Feb 18 19:24:12 2016 -0600
+
+    Corrected output format, generated acceptance tests and output
+
+commit 1803d752823fad7cd2273866240a197392770d5f
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Thu Feb 18 18:26:42 2016 -0600
+
+    Tuned RMSE estimate
+
+commit bd3fc2b8afbd2c220a083ad2c93ecb7acf36fff7
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Wed Feb 17 21:54:56 2016 -0600
+
+    probe.txt RMSE is down to 0.9757
+
+commit c236cb46e1d6850fa953cc760078a2d053177be5
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Wed Feb 17 19:27:46 2016 -0600
+
+    RMSE is less than 1
+
+commit 407b6974462a37ad899f9e9d033c5a4810c63ea7
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Wed Feb 17 19:21:54 2016 -0600
+
+    finished evaluating RMSE, need to tune it to get it less than 1
+
+commit bf56ba3e22652168a8660acda026c22592a101b4
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Wed Feb 17 16:41:23 2016 -0600
+
+    sync'ed cache and input
+
+commit 1b73408244afc8181853bd0c28e23baf72486d18
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Wed Feb 17 16:01:32 2016 -0600
+
+    minor input issues
+
+commit d5c704cdf1b3de356e5e3b11cf68212f08ad1822
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Wed Feb 17 13:35:35 2016 -0600
+
+    input working
+
+commit 197604a84223af0d0fa6f77aa53b89abfca1877f
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Tue Feb 16 19:41:23 2016 -0600
+
+    Input working
+
+commit 81c7f340ab4f63cbadd507920f2fa3fdb6110018
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Mon Feb 15 15:24:04 2016 -0600
+
+    connect travis
+
+commit c059ac5997f6a4f0f2f84a5f1d4688c83b1f6e96
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Mon Feb 15 15:16:48 2016 -0600
+
+    connect travis
+
+commit 8237f1ba55425ef50fb8963a0ed5ebdc9b86ee55
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Sun Feb 14 19:45:16 2016 -0600
+
+    test
+
+commit d8cb581f343ec86003af5b4f89981fa146ade83c
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Sun Feb 14 19:42:05 2016 -0600
+
+    branched from master
+
+commit 3de09d10d93efa75f0718d416ad1a069b554cb7b
+Author: Ouyangzheng Huang <ouyang16@cs.utexas.edu>
+Date:   Sun Feb 14 19:30:08 2016 -0600
+
+    first commit
