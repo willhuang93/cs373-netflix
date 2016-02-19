@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module Netflix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Netflix</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/v/filer4b/v38q001/ouyang16/SOFTWARE_ENGINEERING/cs373-netflix/Netflix.py">/v/filer4b/v38q001/ouyang16/SOFTWARE_ENGINEERING/cs373-netflix/Netflix.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;---------------------------<br>
+#&nbsp;projects/netflix/Collatz.py<br>
+#&nbsp;Copyright&nbsp;(C)&nbsp;2016<br>
+#&nbsp;Glenn&nbsp;P.&nbsp;Downing<br>
+#&nbsp;---------------------------</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="pickle.html">pickle</a><br>
+</td><td width="25%" valign=top><a href="requests.html">requests</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-RMSE"><strong>RMSE</strong></a>(true_vals, estimates)</dt><dd><tt>calculates&nbsp;RMSE&nbsp;using&nbsp;fastest&nbsp;method&nbsp;taught&nbsp;in&nbsp;class,&nbsp;i.e.&nbsp;numpy</tt></dd></dl>
+ <dl><dt><a name="-netflix_eval"><strong>netflix_eval</strong></a>(year, movie_avg, usr_avg)</dt><dd><tt>calculates&nbsp;the&nbsp;estimate&nbsp;value&nbsp;for&nbsp;a&nbsp;predicated&nbsp;customer&nbsp;movie&nbsp;rating<br>
+first&nbsp;accounts&nbsp;for&nbsp;the&nbsp;movie's&nbsp;rating&nbsp;relative&nbsp;to&nbsp;the&nbsp;average&nbsp;rating&nbsp;of&nbsp;all&nbsp;the&nbsp;movies&nbsp;in&nbsp;mov_offset<br>
+then&nbsp;accounts&nbsp;how&nbsp;critical&nbsp;the&nbsp;user&nbsp;is&nbsp;relative&nbsp;to&nbsp;the&nbsp;movie&nbsp;in&nbsp;usr_offset<br>
+then&nbsp;uses&nbsp;how&nbsp;old&nbsp;the&nbsp;movie&nbsp;is&nbsp;as&nbsp;an&nbsp;offset&nbsp;to&nbsp;determine&nbsp;the&nbsp;trend&nbsp;of&nbsp;ratings&nbsp;for&nbsp;movies&nbsp;released&nbsp;in&nbsp;different&nbsp;movie_years<br>
+uses&nbsp;the&nbsp;movie&nbsp;average&nbsp;as&nbsp;a&nbsp;base&nbsp;line&nbsp;and&nbsp;add&nbsp;the&nbsp;3&nbsp;factors&nbsp;to&nbsp;it&nbsp;to&nbsp;get&nbsp;the&nbsp;estimate</tt></dd></dl>
+ <dl><dt><a name="-netflix_print"><strong>netflix_print</strong></a>(w, rmse, output)</dt><dd><tt>prints&nbsp;the&nbsp;movie&nbsp;id,&nbsp;followed&nbsp;by&nbsp;a&nbsp;list&nbsp;of&nbsp;customers&nbsp;predicated&nbsp;ratings,&nbsp;and&nbsp;the&nbsp;final&nbsp;overall&nbsp;RMSE</tt></dd></dl>
+ <dl><dt><a name="-netflix_solve"><strong>netflix_solve</strong></a>(r, w)</dt><dd><tt>feeds&nbsp;2&nbsp;lists&nbsp;to&nbsp;<a href="#-RMSE">RMSE</a>(a,&nbsp;b),&nbsp;the&nbsp;list&nbsp;containing&nbsp;true&nbsp;values,&nbsp;and&nbsp;the&nbsp;list&nbsp;containing&nbsp;estimated&nbsp;values,&nbsp;matched&nbsp;by&nbsp;the&nbsp;movie&nbsp;being&nbsp;compared<br>
+calls&nbsp;netflix_eval&nbsp;to&nbsp;predicate&nbsp;customer&nbsp;rating&nbsp;for&nbsp;a&nbsp;movie<br>
+takes&nbsp;input&nbsp;and&nbsp;iterates&nbsp;over&nbsp;each&nbsp;movie,&nbsp;predicating&nbsp;a&nbsp;rating&nbsp;for&nbsp;each&nbsp;customer<br>
+uses&nbsp;cache&nbsp;values&nbsp;in&nbsp;predications<br>
+returns&nbsp;overall&nbsp;RMSE&nbsp;for&nbsp;TestNetflix.py</tt></dd></dl>
+ <dl><dt><a name="-open_caches"><strong>open_caches</strong></a>()</dt><dd><tt>Open&nbsp;all&nbsp;relevant&nbsp;caches&nbsp;to&nbsp;be&nbsp;used&nbsp;and&nbsp;make&nbsp;them&nbsp;globally&nbsp;available&nbsp;in&nbsp;the&nbsp;program</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>movie_avg</strong> = None<br>
+<strong>movie_years</strong> = None<br>
+<strong>sqrt</strong> = &lt;ufunc 'sqrt'&gt;<br>
+<strong>square</strong> = &lt;ufunc 'square'&gt;<br>
+<strong>subtract</strong> = &lt;ufunc 'subtract'&gt;<br>
+<strong>total_avg</strong> = 0<br>
+<strong>true_cache</strong> = None<br>
+<strong>usr_stats</strong> = None</td></tr></table>
+</body></html>

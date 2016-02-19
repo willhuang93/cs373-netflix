@@ -24,7 +24,13 @@ total_avg = 0
 def netflix_eval (year, movie_avg, usr_avg) :
 	
 	"""
+	calculates the estimate value for a predicated customer movie rating
+	first accounts for the movie's rating relative to the average rating of all the movies in mov_offset
+	then accounts how critical the user is relative to the movie in usr_offset
+	then uses how old the movie is as an offset to determine the trend of ratings for movies released in different movie_years
+	uses the movie average as a base line and add the 3 factors to it to get the estimate
 	"""
+
 	assert (movie_avg >= 0)
 	assert (usr_avg >= 0)
 
@@ -95,6 +101,14 @@ def netflix_eval (year, movie_avg, usr_avg) :
 # -------------
 def netflix_solve (r, w) :
 
+	"""
+	feeds 2 lists to RMSE(a, b), the list containing true values, and the list containing estimated values, matched by the movie being compared
+	calls netflix_eval to predicate customer rating for a movie
+	takes input and iterates over each movie, predicating a rating for each customer
+	uses cache values in predications
+	returns overall RMSE for TestNetflix.py
+	"""
+
 	open_caches()	# reading in caches from files
 	
 	global movie_avg
@@ -136,14 +150,6 @@ def netflix_solve (r, w) :
 	a = RMSE(true_vals, estimates)
 
 	sorted(output.items(), key = lambda output : output[0] )
-
-	# for k in iter(output.keys()):
-	# 	# print(str(k).strip(' \t'), ":")
-	# 	w.write(str(k) + ":\n")
-	# 	for x in output[k] :
-	# 		w.write(str(round(x, 1)) + "\n")
-
-	# print("RMSE", a)
 	
 	netflix_print(w, a, output)
 
@@ -156,6 +162,11 @@ def netflix_solve (r, w) :
 # netflix_print
 #--------------
 def netflix_print(w, rmse, output):
+
+	"""
+	prints the movie id, followed by a list of customers predicated ratings, and the final overall RMSE
+	"""
+
 	for k in iter(output.keys()):
 		# print(str(k).strip(' \t'), ":")
 		w.write(str(k) + ":\n")
@@ -169,12 +180,20 @@ def netflix_print(w, rmse, output):
 # Root Mean Square Error
 # ----------------------
 def RMSE(true_vals, estimates):
+
+	"""
+	calculates RMSE using fastest method taught in class, i.e. numpy
+	"""
 	return sqrt(mean(square(subtract(true_vals, estimates))))
 
 # ----------
 # open_cache
 # ----------
 def open_caches():
+	"""
+	Open all relevant caches to be used and make them globally available in the program
+	"""
+
 	global movie_avg
 	global true_cache
 	global usr_stats
