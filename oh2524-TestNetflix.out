@@ -1,0 +1,20 @@
+....................../v/filer4b/v38q001/ouyang16/SOFTWARE_ENGINEERING/cs373-netflix/Netflix.py:98: ResourceWarning: unclosed file <_io.BufferedReader name='/u/downing/public_html/netflix-caches/kh549-movie_average.pickle'>
+  open_caches()	# reading in caches from files
+/v/filer4b/v38q001/ouyang16/SOFTWARE_ENGINEERING/cs373-netflix/Netflix.py:98: ResourceWarning: unclosed file <_io.BufferedReader name='/u/downing/public_html/netflix-caches/kh549-customer_average.pickle'>
+  open_caches()	# reading in caches from files
+/v/filer4b/v38q001/ouyang16/SOFTWARE_ENGINEERING/cs373-netflix/Netflix.py:98: ResourceWarning: unclosed file <_io.BufferedReader name='/u/downing/public_html/netflix-caches/mdg7227-all_movie_years.pickle'>
+  open_caches()	# reading in caches from files
+/v/filer4b/v38q001/ouyang16/SOFTWARE_ENGINEERING/cs373-netflix/Netflix.py:98: ResourceWarning: unclosed file <_io.BufferedReader name='/u/downing/public_html/netflix-caches/mdg7227-real_scores.pickle'>
+  open_caches()	# reading in caches from files
+.
+----------------------------------------------------------------------
+Ran 23 tests in 0.246s
+
+OK
+3.2281371945001136
+Name             Stmts   Miss Branch BrPart  Cover   Missing
+------------------------------------------------------------
+Netflix.py         120     12     68      8    88%   39, 51, 78-79, 191-192, 198-199, 205-206, 233-234, 38->39, 50->51, 76->78, 125->127, 187->191, 194->198, 201->205, 229->233
+TestNetflix.py      89      4      4      2    94%   103-104, 107-108, 145->147, 153->-15
+------------------------------------------------------------
+TOTAL              209     16     72     10    90%   
