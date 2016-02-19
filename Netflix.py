@@ -12,9 +12,9 @@ from numpy import mean, sqrt, square, subtract
 movie_avg = None
 usr_stats = None
 true_cache = None
-mov_yearly_rating = None	# {(m_id, year): rating, ...}
-usr_decade_rating = None	# {usr_id: {year : rating, ...}}
-usr_yearly_rating = None	# {(usr_id, year) : rating, ...}
+# mov_yearly_rating = None	# {(m_id, year): rating, ...}
+# usr_decade_rating = None	# {usr_id: {year : rating, ...}}
+# usr_yearly_rating = None	# {(usr_id, year) : rating, ...}
 movie_years = None
 total_avg = 0
 
@@ -28,12 +28,12 @@ def netflix_eval (movie_id, usr_id, year, movie_avg, usr_avg) :
 
 	global true_cache
 	global total_avg
+
 	year_diff = 0
 	mov_offset = movie_avg - total_avg
 	usr_offset = usr_avg - movie_avg
 	
-	# if (movie_id, year) in mov_yearly_rating.keys() and (usr_id, year) in usr_yearly_rating.keys():
-	# 	year_diff = usr_yearly_rating[(usr_id, year)] - mov_yearly_rating[(movie_id, year)]
+	
 	if year > 2004:
 		year_diff = -0.45
 	elif year > 2003:
@@ -77,12 +77,13 @@ def netflix_eval (movie_id, usr_id, year, movie_avg, usr_avg) :
 	elif year > 1900:
 		year_diff = 0.15
 
-
 	estimate = movie_avg + mov_offset + usr_offset + year_diff
 
 	# print("Movie: [", movie_id, "]\t\tEstimate: ", estimate, "\t\tTrue: ", true_cache[movie_id][usr_id])
 
 	return estimate
+
+	# RMSE 0.975639279812
 
 
 
@@ -91,8 +92,8 @@ def netflix_eval (movie_id, usr_id, year, movie_avg, usr_avg) :
 # -------------
 def netflix_solve (r, w) :
 
-	open_caches()
-	# reading in caches from files
+	open_caches()	# reading in caches from files
+	
 	global movie_avg
 	global usr_stats
 	global total_avg
@@ -106,6 +107,8 @@ def netflix_solve (r, w) :
 	year = 0
 	estimates = []
 	true_vals = []
+	output = dict()
+	temp = []
 
 	for k in iter(movie_avg.keys()):
 		total_avg += movie_avg[k]
@@ -118,42 +121,30 @@ def netflix_solve (r, w) :
 			m_id = int(line.replace(":", "").replace("\n", ""))
 			if movie_years[m_id] is not None:
 				year = int(movie_years[m_id])
-			# print()
+			temp = []
+			output[m_id] = temp
 		else:
 			u_id = int(line)
 			result = netflix_eval(m_id, u_id, year, movie_avg[m_id], usr_stats[u_id])
 			true_vals.append(int(true_cache[m_id][u_id]))
 			estimates.append(result)
+			temp.append(result)
 
 	a = RMSE(true_vals, estimates)
+
+	sorted(output.items(), key = lambda output : output[0] )
+
+	for k in iter(output.keys()):
+		# print(str(k).strip(' \t'), ":")
+		w.write(str(k) + ":\n")
+		for x in output[k] :
+			w.write(str(round(x, 1)) + "\n")
+
 	print("RMSE", a)
 	
 	# ----------
 	# processing 
 	# ----------
-
-	# print(mov_yearly_rating)
-	# print("\n\n\n")
-	# print(usr_yearly_rating)
-	# print("\n\n\n")
-	# print(usr_decade_rating)
-
-	# keys = sorted(iter(t.keys()))
-
-	# for x in keys:
-	# 	w.write("customer: " + x + "\n")
-	# 	for y in t[x]:
-	# 		a = usr_stats[int(y)]
-	# 		out = str(a)
-	# 		w.write(y + "\t" + out + "\n")
-	# 	w.write("\n")
-
-
-	#	print(cache)
-	#	print(bytes)
-	#	print(cache[2043])
-
-
 
 # ----------------------
 # Root Mean Square Error
@@ -168,9 +159,9 @@ def open_caches():
 	global movie_avg
 	global true_cache
 	global usr_stats
-	global mov_yearly_rating
-	global usr_decade_rating
-	global usr_yearly_rating
+	# global mov_yearly_rating
+	# global usr_decade_rating
+	# global usr_yearly_rating
 	global movie_years
 	
 	if os.path.isfile('/u/downing/public_html/netflix-caches/kh549-movie_average.pickle') :
@@ -194,26 +185,26 @@ def open_caches():
 		bytes3 = requests.get('http://www.cs.utexas.edu/users/downing/netflix-caches/mdg7227-real_scores.pickle').content
 		true_cache= pickle.load(bytes3)
 
-	if os.path.isfile('/u/downing/public_html/netflix-caches/mdg7227-avg_customer_rating_per_movie_decade.pickle') :
-		f4 = open('/u/downing/public_html/netflix-caches/mdg7227-avg_customer_rating_per_movie_decade.pickle','rb')
-		usr_decade_rating = pickle.load(f4)
-	else:
-		bytes4 = requests.get('http://www.cs.utexas.edu/users/downing/netflix-caches/mdg7227-avg_customer_rating_per_movie_decade.pickle').content
-		usr_decade_rating = pickle.loads(bytes4)
+	# if os.path.isfile('/u/downing/public_html/netflix-caches/mdg7227-avg_customer_rating_per_movie_decade.pickle') :
+	# 	f4 = open('/u/downing/public_html/netflix-caches/mdg7227-avg_customer_rating_per_movie_decade.pickle','rb')
+	# 	usr_decade_rating = pickle.load(f4)
+	# else:
+	# 	bytes4 = requests.get('http://www.cs.utexas.edu/users/downing/netflix-caches/mdg7227-avg_customer_rating_per_movie_decade.pickle').content
+	# 	usr_decade_rating = pickle.loads(bytes4)
 
-	if os.path.isfile('/u/downing/public_html/netflix-caches/pas2465-movie_year_avgs2.pickle') :
-		f5 = open('/u/downing/public_html/netflix-caches/pas2465-movie_year_avgs2.pickle','rb')
-		mov_yearly_rating = pickle.load(f5)
-	else:
-		bytes5 = requests.get('http://www.cs.utexas.edu/users/downing/netflix-caches/pas2465-movie_year_avgs2.pickle').content
-		mov_yearly_rating = pickle.loads(bytes5)
+	# if os.path.isfile('/u/downing/public_html/netflix-caches/pas2465-movie_year_avgs2.pickle') :
+	# 	f5 = open('/u/downing/public_html/netflix-caches/pas2465-movie_year_avgs2.pickle','rb')
+	# 	mov_yearly_rating = pickle.load(f5)
+	# else:
+	# 	bytes5 = requests.get('http://www.cs.utexas.edu/users/downing/netflix-caches/pas2465-movie_year_avgs2.pickle').content
+	# 	mov_yearly_rating = pickle.loads(bytes5)
 
-	if os.path.isfile('/u/downing/public_html/netflix-caches/pas2465-user_year_avgs2.pickle') :
-		f6 = open('/u/downing/public_html/netflix-caches/pas2465-user_year_avgs2.pickle','rb')
-		usr_yearly_rating = pickle.load(f6)
-	else:
-		bytes6 = requests.get('http://www.cs.utexas.edu/users/downing/netflix-caches/pas2465-user_year_avgs2.pickle').content
-		usr_yearly_rating = pickle.loads(bytes6)
+	# if os.path.isfile('/u/downing/public_html/netflix-caches/pas2465-user_year_avgs2.pickle') :
+	# 	f6 = open('/u/downing/public_html/netflix-caches/pas2465-user_year_avgs2.pickle','rb')
+	# 	usr_yearly_rating = pickle.load(f6)
+	# else:
+	# 	bytes6 = requests.get('http://www.cs.utexas.edu/users/downing/netflix-caches/pas2465-user_year_avgs2.pickle').content
+	# 	usr_yearly_rating = pickle.loads(bytes6)
 
 	if os.path.isfile('/u/downing/public_html/netflix-caches/mdg7227-all_movie_years.pickle') :
 		f7 = open('/u/downing/public_html/netflix-caches/mdg7227-all_movie_years.pickle','rb')
